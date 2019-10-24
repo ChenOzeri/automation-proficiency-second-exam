@@ -8,7 +8,10 @@ class ReflixPage {
 
     async selectUser(userName) {
         try {
-            let userFound = await selenium.clickElement("xpath", `//*[@id="root"]/div/div[2]/div/a[1]`)
+            let user = await selenium.clickElement("xpath", `//*[@id="root"]/div/div[2]/div/a[4]`)
+            // let user = await selenium.findElementListBy ("className", "user")
+            // console.log (user)
+
             let validateURL = await selenium.validURL("catalog")
             if (validateURL) {
                 console.log("URL is catalog as expected")
@@ -24,24 +27,24 @@ class ReflixPage {
     async orderAndReturnTwoMovies() {
         try {
             let movieBudget = await selenium.getTextFromElement("id", "budget")
-            console.log ("budget = " + movieBudget)
+            console.log("budget = " + movieBudget)
             if (movieBudget = "$10.00") {
                 console.log("Movie budget is 10$.")
             }
             else {
                 console.log("wrong budget.")
             }
-            const orderTarzan = await selenium.clickElement("xpath", `//*[@id="root"]/div/div[2]/div/div/div/div[1]/i`)
+            const orderTarzan = await selenium.clickElement("className", "fas fa-plus-circle")
             const orderLionKing = await selenium.clickElement("xpath", `//*[@id="root"]/div/div[2]/div/div/div/div[2]/i`)
             let decreasedBudget = await selenium.getTextFromElement("id", "budget")
-            console.log ("Movie budget is now " + decreasedBudget )
+            console.log("Movie budget is now " + decreasedBudget)
             if (decreasedBudget = "$4.00") {
                 console.log("Movies have been ordered successfully")
             }
             else {
                 console.log("Error: can't order the desired movies.")
             }
-            const returnTarazn = await selenium.clickElement("xpath", `//*[@id="root"]/div/div[2]/div/div[1]/div/div[1]/i`)
+            const returnTarazn = await selenium.clickElement("className", "fas fa-minus-circle")
             const returnLionKing = await selenium.clickElement("xpath", `//*[@id="root"]/div/div[2]/div/div[1]/div/div/i`)
             if (decreasedBudget + 6) {
                 console.log("Movie has been returned successfully")
@@ -57,8 +60,8 @@ class ReflixPage {
     async printMovieInfo(movieName) {
         try {
             await selenium.clickElement("xpath", `//*[@id="root"]/div/div[2]/div/div/div/div[1]`)
-            let tarzanText = await selenium.getTextFromElement("css", "#root > div > div:nth-child(2) > div > p")
-            console.log (tarzanText)
+            let tarzanText = await selenium.getTextFromElement("className", "movie-detail")
+            console.log(tarzanText)
         }
         catch (error) {
             console.error("Problem with printMovieInfo function " + error)
