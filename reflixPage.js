@@ -8,9 +8,13 @@ class ReflixPage {
 
     async selectUser(userName) {
         try {
-            let user = await selenium.clickElement("xpath", `//*[@id="root"]/div/div[2]/div/a[4]`)
-            // let user = await selenium.findElementListBy ("className", "user")
-            // console.log (user)
+            let user = await selenium.findElementListBy("className", "user")
+            for (user in userName)
+                if (userName == "Tina")
+                    await selenium.clickElement("className", "user")
+            console.log(userName)
+
+            // loop for findELEMENTS - > then loops until it finds the wanted string 
 
             let validateURL = await selenium.validURL("catalog")
             if (validateURL) {
@@ -28,25 +32,30 @@ class ReflixPage {
         try {
             let movieBudget = await selenium.getTextFromElement("id", "budget")
             console.log("budget = " + movieBudget)
-            if (movieBudget = "$10.00") {
+            if (movieBudget.includes("10")) {
                 console.log("Movie budget is 10$.")
             }
             else {
                 console.log("wrong budget.")
             }
-            const orderTarzan = await selenium.clickElement("className", "fas fa-plus-circle")
-            const orderLionKing = await selenium.clickElement("xpath", `//*[@id="root"]/div/div[2]/div/div/div/div[2]/i`)
+            
+            let plusButton = await selenium.clickElement("className", "fas fa-plus-circle")
+            for (plusButton = 0; plusButton < 1; plusButton++)
+                await selenium.clickElement("className", "fas fa-plus-circle")
+
             let decreasedBudget = await selenium.getTextFromElement("id", "budget")
             console.log("Movie budget is now " + decreasedBudget)
-            if (decreasedBudget = "$4.00") {
+            if (decreasedBudget.includes("4")) {
                 console.log("Movies have been ordered successfully")
             }
             else {
                 console.log("Error: can't order the desired movies.")
             }
-            const returnTarazn = await selenium.clickElement("className", "fas fa-minus-circle")
-            const returnLionKing = await selenium.clickElement("xpath", `//*[@id="root"]/div/div[2]/div/div[1]/div/div/i`)
-            if (decreasedBudget + 6) {
+            
+            let minusButton = await selenium.clickElement("className", "fas fa-minus-circle")
+            for (minusButton = 0; minusButton < 1; minusButton++)
+            await selenium.clickElement("className", "fas fa-minus-circle")
+            if (movieBudget.includes("10")) {
                 console.log("Movie has been returned successfully")
             }
             else {
@@ -59,7 +68,10 @@ class ReflixPage {
     }
     async printMovieInfo(movieName) {
         try {
-            await selenium.clickElement("xpath", `//*[@id="root"]/div/div[2]/div/div/div/div[1]`)
+            let movie = await selenium.findElementListBy("className", "movie")
+            for (movie in movieName)
+            if (movieName.includes("Tarzan"))
+            await selenium.clickElement("className", "movie")
             let tarzanText = await selenium.getTextFromElement("className", "movie-detail")
             console.log(tarzanText)
         }
