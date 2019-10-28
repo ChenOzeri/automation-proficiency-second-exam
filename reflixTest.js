@@ -8,7 +8,7 @@ let reflixTests = new ReflixPage("http://localhost:3000/")
 let main = async function () {
     await reflixTests.selectUser("Tina")
     await reflixTests.orderAndReturnTwoMovies()
-    await reflixTests.printMovieInfo("Tarzan")
+    await reflixTests.printMovieInfo("The Lion King")
 }
 
 main()

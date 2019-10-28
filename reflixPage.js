@@ -76,11 +76,13 @@ class ReflixPage {
     async printMovieInfo(movieName) {
         try {
             let movies = await selenium.findElementListBy("className", "movie")
-            for (let movie of movies) {
-                let movieText = await selenium.getTextFromElement("className", "user", movie)
-                if (movieText.includes(movieName))
+            for (let m of movies) {
+                let movieText = await selenium.getTextFromElement("className", "movie", m)
+                console.log(movieText)
+                if (movieText.includes(movieName)){
                     await selenium.clickElement("className", "movie")
-            }
+            }}
+
             let tarzanText = await selenium.getTextFromElement("className", "movie-detail")
             console.log(tarzanText)
         }
