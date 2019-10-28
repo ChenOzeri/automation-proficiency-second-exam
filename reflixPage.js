@@ -8,11 +8,14 @@ class ReflixPage {
 
     async selectUser(userName) {
         try {
-            let user = await selenium.findElementListBy("className", "user")
-            for (let u in user) {
-                if (userName == "Tina")
+            let users = await selenium.findElementListBy("className", "user")
+            console.log (users)
+            for (let name of users) {
+                let user = await selenium.getTextFromElement("className", "user", name)
+                console.log (user)
+                if (user== userName){
                     await selenium.clickElement("className", "user")
-            }
+            }}
             console.log(userName)
 
             // loop for findELEMENTS - > then loops until it finds the wanted string 
@@ -29,7 +32,7 @@ class ReflixPage {
         }
     }
 
-    async orderAndReturnTwoMovies(wantedMovie, wantedMovie2) {
+    async orderAndReturnTwoMovies() {
         try {
             let movieBudget = await selenium.getTextFromElement("id", "budget")
             console.log("budget = " + movieBudget)
@@ -56,14 +59,15 @@ class ReflixPage {
 
             let minusButton = await selenium.clickElement("className", "fas fa-minus-circle")
             for (minusButton = 0; minusButton < 1; minusButton++) {
-                await selenium.clickElement("className", "fas fa-minus-circle")
-                if (movieBudget.includes("10")) {
+                await selenium.clickElement("className", "fas fa-minus-circle")}
+                let newMovieBudget = await selenium.getTextFromElement("id", "budget")
+                if (newMovieBudget.includes("10")) {
                     console.log("Movie has been returned successfully")
                 }
                 else {
                     console.log("Error: can't return the desired movies.")
                 }
-            }
+            
 
         } catch (error) {
             console.error("Problem with orderAndReturnTwoMovies function " + error)
@@ -71,9 +75,10 @@ class ReflixPage {
     }
     async printMovieInfo(movieName) {
         try {
-            let movie = await selenium.findElementListBy("className", "movie")
-            for (movie in movieName) {
-                if (movieName.includes("Tarzan"))
+            let movies = await selenium.findElementListBy("className", "movie")
+            for (let movie of movies) {
+                let movieText = await selenium.getTextFromElement("className", "user", movie)
+                if (movieText.includes(movieName))
                     await selenium.clickElement("className", "movie")
             }
             let tarzanText = await selenium.getTextFromElement("className", "movie-detail")
