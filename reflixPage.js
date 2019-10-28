@@ -57,8 +57,8 @@ class ReflixPage {
                 console.log("Error: can't order the desired movies.")
             }
 
-            let minusButton = await selenium.clickElement("className", "fas fa-minus-circle")
-            for (minusButton = 0; minusButton < 1; minusButton++) {
+            let minusButton = await selenium.findElementBy("className", "fas fa-minus-circle")
+            for (minusButton = 0; minusButton < 2; minusButton++) {
                 await selenium.clickElement("className", "fas fa-minus-circle")}
                 let newMovieBudget = await selenium.getTextFromElement("id", "budget")
                 if (newMovieBudget.includes("10")) {
